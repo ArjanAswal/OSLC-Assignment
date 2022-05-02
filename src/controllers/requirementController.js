@@ -31,25 +31,17 @@ exports.getRequirement = async (req, res, next) => {
 };
 
 exports.createRequirement = async (req, res, next) => {
-  const { title, description } = req.body;
+  const doc = {};
+  const context = {};
 
-  const doc = {
-    'http://schema.org/description': [
+  for (const [key, value] of Object.entries(req.body)) {
+    context[`${key}`] = `http://schema.org/${key}`;
+    doc[`http://schema.org/${key}`] = [
       {
-        '@value': title,
+        '@value': value,
       },
-    ],
-    'http://schema.org/title': [
-      {
-        '@value': description,
-      },
-    ],
-  };
-
-  const context = {
-    title: 'http://schema.org/title',
-    description: 'http://schema.org/description',
-  };
+    ];
+  }
 
   const compacted = await jsonld.compact(doc, context);
 
@@ -64,25 +56,17 @@ exports.createRequirement = async (req, res, next) => {
 };
 
 exports.updateRequirement = async (req, res, next) => {
-  const { title, description } = req.body;
+  const doc = {};
+  const context = {};
 
-  const doc = {
-    'http://schema.org/description': [
+  for (const [key, value] of Object.entries(req.body)) {
+    context[`${key}`] = `http://schema.org/${key}`;
+    doc[`http://schema.org/${key}`] = [
       {
-        '@value': title,
+        '@value': value,
       },
-    ],
-    'http://schema.org/title': [
-      {
-        '@value': description,
-      },
-    ],
-  };
-
-  const context = {
-    title: 'http://schema.org/title',
-    description: 'http://schema.org/description',
-  };
+    ];
+  }
 
   const compacted = await jsonld.compact(doc, context);
 
