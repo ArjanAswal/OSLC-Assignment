@@ -8,9 +8,11 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-mongoose.connect(process.env.MONGO_URL).then(() => {
-  logger.info('MongoDB connection successful!');
-});
+mongoose
+  .connect(process.env.MONGO_URL ?? 'mongodb://mongodb:27017/node')
+  .then(() => {
+    logger.info('MongoDB connection successful!');
+  });
 
 const port = process.env.PORT ?? 80;
 const server = app.listen(port, () => {
