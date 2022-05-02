@@ -12,6 +12,13 @@ const RequirementSchema = new Schema({
     trim: true,
     maxlength: [1000, 'Description cannot be longer than 1000 characters!'],
   },
+  '@context': {
+    type: Schema({
+      _id: { type: Schema.Types.ObjectId, select: false },
+      title: String,
+      description: String,
+    }),
+  },
   createdAt: {
     type: Date,
     default: Date.now(),

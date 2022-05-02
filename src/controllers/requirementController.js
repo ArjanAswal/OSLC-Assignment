@@ -1,5 +1,7 @@
 const Requirement = require('../models/requirementModel');
 const AppError = require('../utils/appError');
+const jsonld = require('jsonld');
+
 require('express-async-errors');
 
 exports.getRequirements = async (req, res, next) => {
@@ -31,10 +33,27 @@ exports.getRequirement = async (req, res, next) => {
 exports.createRequirement = async (req, res, next) => {
   const { title, description } = req.body;
 
-  const requirement = await Requirement.create({
-    title,
-    description,
-  });
+  const doc = {
+    'http://schema.org/description': [
+      {
+        '@value': title,
+      },
+    ],
+    'http://schema.org/title': [
+      {
+        '@value': description,
+      },
+    ],
+  };
+
+  const context = {
+    title: 'http://schema.org/title',
+    description: 'http://schema.org/description',
+  };
+
+  const compacted = await jsonld.compact(doc, context);
+
+  const requirement = await Requirement.create(compacted);
 
   res.status(201).json({
     status: 'success',
@@ -47,19 +66,33 @@ exports.createRequirement = async (req, res, next) => {
 exports.updateRequirement = async (req, res, next) => {
   const { title, description } = req.body;
 
+  const doc = {
+    'http://schema.org/description': [
+      {
+        '@value': title,
+      },
+    ],
+    'http://schema.org/title': [
+      {
+        '@value': description,
+      },
+    ],
+  };
+
+  const context = {
+    title: 'http://schema.org/title',
+    description: 'http://schema.org/description',
+  };
+
+  const compacted = await jsonld.compact(doc, context);
+
   const requirement = await Requirement.findById(req.params.id);
 
   if (!requirement) {
     throw new AppError('Requirement does not exist', 404);
   }
 
-  const newRequirement = await Requirement.updateOne(
-    { id: req.params.id },
-    {
-      title,
-      description,
-    }
-  );
+  const newRequirement = await Requirement.updateOne(compacted);
 
   res.status(200).json({
     status: 'success',

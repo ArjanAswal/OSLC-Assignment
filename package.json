@@ -39,6 +39,7 @@
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^6.4.0",
     "helmet": "^5.0.2",
+    "jsonld": "^5.2.0",
     "mongoose": "^6.3.2",
     "winston": "^3.7.2",
     "xss-clean": "^0.1.1"

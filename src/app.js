@@ -11,6 +11,8 @@ require('express-async-errors');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
+const requirementRouter = require('./routes/requirementRouter');
+
 const app = express();
 
 app.enable('trust proxy');
@@ -45,6 +47,8 @@ app.use(xss());
 app.use(compression());
 
 // App Routes
+
+app.use('/requirements', requirementRouter);
 
 app.all('*', (req) => {
   throw new AppError(`Can't find ${req.originalUrl} on this server!`, 404);
