@@ -1,5 +1,33 @@
 const { Schema, model } = require('mongoose');
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Requirements:
+ *       type: object
+ *       required:
+ *       - _id
+ *       - title
+ *       - description
+ *       properties:
+ *         _id:
+ *           type: string
+ *           uniqueItems: true
+ *         title:
+ *           type: string
+ *           description: The title of the requirement
+ *         description:
+ *           type: string
+ *           description: The description of the requirement
+ *         createdAt:
+ *           type: string
+ *           description: The date the requirement was created
+ *     Requirementss:
+ *       type: array
+ *       "$ref": "#/components/schemas/Requirements"
+ */
+
 const RequirementSchema = new Schema(
   {
     title: {
