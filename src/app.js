@@ -10,6 +10,7 @@ require('express-async-errors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const swaggerRouter = require('./routes/swaggerRouter');
 
 const requirementRouter = require('./routes/requirementRouter');
 
@@ -47,8 +48,10 @@ app.use(xss());
 app.use(compression());
 
 // App Routes
-
 app.use('/requirements', requirementRouter);
+
+// Swagger Docs
+app.use('/', swaggerRouter);
 
 app.all('*', (req) => {
   throw new AppError(`Can't find ${req.originalUrl} on this server!`, 404);
