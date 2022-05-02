@@ -1,0 +1,31 @@
+{
+  "name": "nodejs-assignment",
+  "version": "1.0.0",
+  "description": "The nodejs assignment",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js",
+    "test": "jest --runInBand --forceExit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArjanAswal/nodejs-assignment.git"
+  },
+  "author": "Arjan Aswal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArjanAswal/nodejs-assignment/issues"
+  },
+  "homepage": "https://github.com/ArjanAswal/nodejs-assignment#readme",
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.1.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-security": "^1.5.0",
+    "jest": "^28.0.3",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
+  }
+}
