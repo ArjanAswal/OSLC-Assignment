@@ -73,3 +73,41 @@ test('Should create 5 new requirements', async () => {
     expect(response.statusCode).toBe(201);
   }
 });
+
+test('Delete a requirement', async () => {
+  let response = await request(app).post('/requirements').send(requirements[0]);
+  expect(response.statusCode).toBe(201);
+
+  response = await request(app).delete(
+    '/requirements/' + response.body.data.requirement._id
+  );
+  expect(response.statusCode).toBe(204);
+});
+
+test('Retrieve a specific requirement', async () => {
+  let response = await request(app).post('/requirements').send(requirements[0]);
+  expect(response.statusCode).toBe(201);
+
+  response = await request(app).get(
+    '/requirements/' + response.body.data.requirement._id
+  );
+  expect(response.statusCode).toBe(200);
+});
+
+test('Update a specific requirement', async () => {
+  let response = await request(app).post('/requirements').send(requirements[0]);
+  expect(response.statusCode).toBe(201);
+
+  response = await request(app)
+    .patch('/requirements/' + response.body.data.requirement._id)
+    .send({
+      title: '5 is now updated!',
+      description: 'A description!',
+      priority: 'high',
+      url: 'microsoft.com',
+      tag: 'updated',
+    });
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.data.requirement.tag).toBe('updated');
+});
