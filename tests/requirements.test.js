@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const app = require('./../src/app');
 
-const Requirement = require('./../src/models/requirementModel');
 const request = require('supertest');
 
 async function removeAllCollections() {
