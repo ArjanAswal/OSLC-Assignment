@@ -104,9 +104,11 @@ test('Update a specific requirement', async () => {
       description: 'A description!',
       priority: 'high',
       url: 'microsoft.com',
-      tag: 'updated',
+      satisfiedBy: 'https://api2.com/testcases/123',
     });
 
   expect(response.statusCode).toBe(200);
-  expect(response.body.data.requirement.tag).toBe('updated');
+  expect(response.body.data.requirement.satisfiedBy).toBe(
+    'https://api2.com/testcases/123'
+  );
 });
