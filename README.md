@@ -58,21 +58,14 @@ To run tests, run the following command:
 
 ## Project Structure
 
-| Name | Description |
-
+| Name                | Description                                             |
 | ------------------- | ------------------------------------------------------- |
-
-| **src/** | Source files |
-
-| **src/controllers** | The controllers of the express app |
-
-| **src/models** | Mongoose models with swagger documentation |
-
-| **src/routes/** | Express REST API routes with swagger documentation |
-
-| **src/utils** | Reusable utilises and library source code like a logger |
-
-| **tests/** | Test suites are placed here |
+| **src/**            | Source files                                            |
+| **src/controllers** | The controllers of the express app                      |
+| **src/models**      | Mongoose models with swagger documentation              |
+| **src/routes/**     | Express REST API routes with swagger documentation      |
+| **src/utils**       | Reusable utilises and library source code like a logger |
+| **tests/**          | Test suites are placed here                             |
 
 ## Postman Documentation
 
