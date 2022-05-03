@@ -36,7 +36,7 @@ Then run the following command:
 
 `docker-compose up --build`
 
-The api will get exposed at [localhost:80](http//localhost:80).
+The api will get exposed at `localhost:80`.
 
 ## Testing workflow
 
