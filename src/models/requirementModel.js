@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 /**
  * @swagger
@@ -32,7 +32,6 @@ const RequirementSchema = new Schema(
   {
     _id: {
       type: String,
-      default: new Types.ObjectId(),
     },
     title: {
       type: String,
