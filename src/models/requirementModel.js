@@ -1,10 +1,10 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 /**
  * @swagger
  * components:
  *   schemas:
- *     Requirements:
+ *     Requirement:
  *       type: object
  *       required:
  *       - _id
@@ -23,13 +23,17 @@ const { Schema, model } = require('mongoose');
  *         createdAt:
  *           type: string
  *           description: The date the requirement was created
- *     Requirementss:
+ *     Requirements:
  *       type: array
  *       "$ref": "#/components/schemas/Requirements"
  */
 
 const RequirementSchema = new Schema(
   {
+    _id: {
+      type: String,
+      default: new Types.ObjectId(),
+    },
     title: {
       type: String,
       required: [true, 'Title cannot be empty!'],

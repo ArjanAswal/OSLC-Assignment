@@ -16,6 +16,13 @@ const sendErrorDev = (err, res) => {
       });
       break;
 
+    case 'jsonld.SyntaxError':
+      res.status(400).json({
+        status: err.status,
+        message: err.message,
+      });
+      break;
+
     case 'MongoServerError':
       res.status(400).json({
         status: err.status,

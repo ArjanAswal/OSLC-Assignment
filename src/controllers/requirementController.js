@@ -1,6 +1,7 @@
 const Requirement = require('../models/requirementModel');
 const AppError = require('../utils/appError');
 const jsonld = require('jsonld');
+const { Types } = require('mongoose');
 
 require('express-async-errors');
 
@@ -33,6 +34,7 @@ exports.getRequirement = async (req, res, next) => {
 exports.createRequirement = async (req, res, next) => {
   const doc = {};
   const context = {};
+  req.body._id = new Types.ObjectId().toString();
 
   for (const [key, value] of Object.entries(req.body)) {
     context[`${key}`] = `http://schema.org/${key}`;
@@ -58,6 +60,7 @@ exports.createRequirement = async (req, res, next) => {
 exports.updateRequirement = async (req, res, next) => {
   const doc = {};
   const context = {};
+  req.body._id = req.params.id;
 
   for (const [key, value] of Object.entries(req.body)) {
     context[`${key}`] = `http://schema.org/${key}`;
@@ -76,7 +79,28 @@ exports.updateRequirement = async (req, res, next) => {
     throw new AppError('Requirement does not exist', 404);
   }
 
-  const newRequirement = await Requirement.updateOne(compacted);
+  const dummyDoc = {};
+  const dummyContext = {};
+  req.body._id = new Types.ObjectId().toString();
+
+  for (const [key, value] of Object.entries(req.body)) {
+    dummyContext[`${key}`] = `http://schema.org/${key}`;
+    dummyDoc[`http://schema.org/${key}`] = [
+      {
+        '@value': value,
+      },
+    ];
+  }
+
+  const dummyCompacted = await jsonld.compact(dummyDoc, dummyContext);
+
+  await Requirement.create(dummyCompacted).then(async (dummyRequirement) => {
+    await dummyRequirement.remove();
+  });
+
+  requirement.remove();
+
+  const newRequirement = await Requirement.create(compacted);
 
   res.status(200).json({
     status: 'success',

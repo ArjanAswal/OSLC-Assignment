@@ -1,3 +1,5 @@
+const url = process.env.SERVER_URL ?? 'http://localhost';
+
 module.exports = {
   definition: {
     openapi: '3.0.2',
@@ -19,7 +21,7 @@ module.exports = {
     produces: ['application/json'],
     servers: [
       {
-        url: process.env.SERVER_URL + '/',
+        url: url + '/',
         description: 'API server',
       },
     ],
